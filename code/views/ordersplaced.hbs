@@ -1,0 +1,64 @@
+
+<section id="PlacedOrderHistory">
+    <div id="viewOrder-Container">
+        <h1>Your Order History </h1><br>
+        {{!-- {{#if orders}}
+        <table style="width:100%">
+
+            {{#each orders}}
+                <tr>
+                    <td>
+                        <p><b>{{this.vendorName}}</b> order on {{#formatDate this.orderPlacedTime}}{{/formatDate}}</p>
+                    </td>
+                    <td>
+                        <p> Status: 
+                            <b>
+                            {{#if this.orderCancelled}} Cancelled
+                                {{else if this.orderFulfilled}} Fulfilled 
+                                    {{else}}Preparing
+                            {{/if}}
+                            </b>
+
+                        </p>
+                    </td>
+                    <td>
+                        <a href="/customer/order/{{this._id}}">More details</a>
+                    </td>
+                </tr>
+                    
+            {{/each}}
+
+        </table> --}}
+        {{#if orders}}
+        <ul style="list-style-type:none;">
+            {{#each orders}}
+            <li>
+                <div id="PlacedOrdersHistory-Container">
+                    <div id="PlacedOrdersHistoryNameDate-Container">
+                        <div>
+                            <Strong>{{this.vendorId.vendorName}} order</Strong>
+                        </div>
+                        <div>
+                            {{#formatDate this.orderPlacedTime}}{{/formatDate}}
+                        </div>
+                    </div>
+        
+                    <div>
+                        Status:
+                        <b id= "status-text">{{this.status}}</b>
+                    </div>
+                    <div>
+                        <a href="/customer/order/getOrder/{{this._id}}">More details</a>
+                    </div>
+                </div>
+                <p></p>
+            </li>
+        
+            {{/each}}
+        </ul>
+        
+        {{else}}
+        <center> No Previous Orders Found
+        {{/if}}
+    </div>
+</section>

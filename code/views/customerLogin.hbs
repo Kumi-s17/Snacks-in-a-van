@@ -1,0 +1,21 @@
+{{!-- Customer login page --}}
+<section id="customerLogin">
+    <div id="loginContainer">
+        <h1 id="login-header">Login</h1>
+        <div id="loginError">
+            {{!-- Incorrect details will display an error message --}}
+            {{loginMessage}} 
+        </div>
+        {{!-- A form where customer will input their user details --}}
+        <form method="post" action="/customer/user-management/login">
+            <label for="email"></label>
+            <input type="email" name="email" placeholder="Email"><br>
+            <label for="password"></label>
+            <input type="password" name="password" placeholder="Password"><br>
+            <label for="submit"></label>
+            <input id="customerInput" type="submit" value="Login" >  
+        </form>
+        {{!-- Links to sign up page if user does not have an account --}}
+        <p id="signUpLink">Need an account?  <a class="link" href="/customer/user-management/signUp">Sign Up</p> 
+    </div>
+</section>

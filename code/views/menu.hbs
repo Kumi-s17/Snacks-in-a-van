@@ -1,0 +1,118 @@
+<section id="menuPage">
+    {{#if foundVendor}}
+    <h1> {{vendor.vendorName}} Menu </h1>
+    <body>
+        <div id="gridAreaNew">
+            <h2 class="menu-heading">Food </h2>
+            <h2 class="menu-heading">Drinks </h2>
+        </div>
+        <div id="gridAreaNew">
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+            {{#each menuItems}}
+            <script>
+                $(document).ready(function(){
+                    //Hide item list menu
+                    $("#{{this._id}}success-add").hide()
+                })
+            </script>
+            {{!-- Reveal more details when button clicked--}}
+            <script>
+                $(function () {
+                    // don't cache ajax or content won't be fresh
+                    $.ajaxSetup({
+                        cache: false
+                    });
+                    $("#"+"{{this._id}}"+"button2").click(function(event){
+                        $("#{{this._id}}success-add").stop(true,true);
+                        $("#{{this._id}}success-add").show().text("Adding item...");
+                        $.ajax({
+                            url : "/customer/order/addToCart/{{../vendor._id}}/{{this._id}}",
+                            type :'POST',
+                            data : {},
+                            //contentType: "application/json; charset=utf-8",
+                            dataType: "text",
+                            statusCode:{
+                                401: function(response){
+                                    window.location.replace('/customer/user-management/login')
+                                }
+                            },
+                            async: true,
+                            success : function(response){
+                                $("#{{this._id}}success-add").text(response)
+                                $("#{{this._id}}success-add").delay(1000).fadeOut("slow");
+                            }
+                        })
+                    });
+                    // end  
+                });
+            </script>
+            
+            {{#if this.isFood}}
+
+            <section class="left1">
+                <section id="menuSub">
+                    <section id="l">
+                        <h3 class="menu-item-title">{{this.itemName}}</h3>
+                        <p class="description-ellipsis">{{this.desc}}
+                        <a class="more-detail-link" href="/customer/menu/moreDetails/{{../vendor._id}}/{{this._id}}">More details</a></p>
+                        <p class="menu-price">${{this.itemPrice}}</p>
+                        <section id="itemDropdown">
+                            <button id="{{this._id}}button2" class = "button2">
+                                Add to Cart</button>
+                        </section>
+                        <p id="{{this._id}}success-add" class = "itemDropDownText"></p>
+                    
+                    </section>
+               
+                    <section id="r">
+                        <img class="menuSub" src={{this.link}}>
+                    </section>
+                </section>
+            </section>
+
+            {{else}}
+            <section class="right1">
+                <section id="menuSub">
+                    <section id="l">
+                        <h3 class="menu-item-title">{{this.itemName}}</h3>
+                        <p class="description-ellipsis">{{this.desc}}
+                        <a class="more-detail-link" href="/customer/menu/moreDetails/{{../vendor._id}}/{{this._id}}">More details </a></p>
+                        <p class="menu-price">${{this.itemPrice}}</p>
+                        <section id="itemDropdown">
+                            <button id="{{this._id}}button2" class = "button2">
+                                Add to Cart</button>
+                        </section>
+                        <p id="{{this._id}}success-add" class = "itemDropDownText"></p>
+                    </section>
+             
+                    <section id="r">
+                        <img class="menuSub" src={{this.link}}>
+                    </section>
+                </section>
+            </section>
+            {{/if}}
+            {{/each}}
+        </div>
+
+        <script>
+            var coll = document.getElementsByClassName("collapsible");
+            var i;
+            for (i = 0; i < coll.length; i++) {
+                coll[i].addEventListener("click", function () {
+                    this.classList.toggle("active");
+                    var content = this.nextElementSibling;
+                    if (content.style.display === "block") {
+                        content.style.display = "none";
+                    } else {
+                        content.style.display = "block";
+                    }
+                });
+            }
+
+        </script>
+    
+    </body>
+    {{else}}
+        <h1>Vendor not found<h1>
+    {{/if}}
+</section>

@@ -1,0 +1,62 @@
+
+<section id="oneFood">
+    {{!-- Reveal more details when button clicked--}}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(function () {
+            // don't cache ajax or content won't be fresh
+            $.ajaxSetup({
+                cache: false
+            });
+            $("#"+"{{thisfood._id}}"+"button2").click(function(event){
+                $("#{{thisfood._id}}success-add").stop(true,true);
+                $("#{{thisfood._id}}success-add").show().text("Adding item...");
+                $.ajax({
+                    url : "/customer/order/addToCart/{{vendorId}}/{{thisfood._id}}",
+                    type :'POST',
+                    data : {},
+                    //contentType: "application/json; charset=utf-8",
+                    dataType: "text",
+                    statusCode:{
+                        401: function(response){
+                            window.location.replace('/customer/user-management/login')
+                        }
+                    },
+                    async: true,
+                    success : function(response){
+                        $("#{{thisfood._id}}success-add").text(response)
+                        $("#{{thisfood._id}}success-add").delay(1000).fadeOut("slow");
+                    }
+                })
+            });
+            // end  
+        });
+    </script>
+
+    <a class="back-to-menu" href="/customer/menu/{{vendorId}}"><i class="fas fa-chevron-left"></i>Back to menu</a>
+    <body>
+        <section id="oneFood-details">
+            
+            <section class="oneFood-picture">
+                <img src={{thisfood.link}} alt={{thisfood.itemName}}>
+            </section>
+            
+            <section class="onefood-text">
+                <center>
+                    <h1> {{thisfood.itemName}} </h1>
+                    <p class="oneFood-Price">${{thisfood.itemPrice}} </p>
+                    <p>{{thisfood.desc}}</p>
+                    <p>Calories:{{thisfood.calories}}
+                        -- Protein:{{thisfood.protein}}g
+                        -- Carbohydrates:{{thisfood.carbohydrates}}g
+                        -- Fat:{{thisfood.fat}}g</p>
+                    <section id="itemDropdownInfo">
+                        <button id="{{thisfood._id}}button2" class = "button2">
+                                Add to Cart</button>
+                        <p id="{{thisfood._id}}success-add" class = "itemDropDownText"></p>
+                    </section>
+                </center>
+            </section>
+        </section>
+    </body>
+</section>

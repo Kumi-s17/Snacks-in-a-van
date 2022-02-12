@@ -1,0 +1,43 @@
+<section id="homePage">
+    <h1>Here are the nearest vans to you!</h1>
+    <div class="flex-container">
+        {{#each vendors}}
+        <div class="flex-item">
+           <h2>{{this.vendorName}}</h2>
+           <img src={{this.link}}>
+           <p>{{this.locationDescription}}</p>
+           <button onclick="displayModem()">visit</button>
+        </div>
+        {{/each}}
+    </div>
+</section>
+
+<section>
+    <div class="modemContainer" id="modem" style="display:none">
+        <div class="modemContent">
+            <div class="left" id="x-button"><button onclick="closeModem()">&times;</button></div>
+            <img src="https://source.unsplash.com/HzliqcgPxnA">
+            <button><a href="/customer/menu">View Menu</a></button>
+        </div>
+    </div>
+    
+</section>
+
+<script>
+    function closeModem(){
+        var object = document.getElementById("modem");
+        object.style.display="none";
+     }
+     function displayModem(){
+        document.getElementById("modem").style.display="block";
+    }
+    
+</script>
+
+
+
+
+
+
+
+

@@ -1,0 +1,21 @@
+{{!-- Customer sign up page --}}
+<section id="customerSignUp">
+    <div id="signUpContainer">
+        <h1 id="signUp-header">Create Account</h1>
+        <div id="signUpError">
+            {{!-- Incorrect details will display an error message --}}
+            {{signUpMessage}}
+        </div>
+        {{!-- A form where customer will input their user details --}}
+        <form method="post" action="/customer/user-management/signUp">
+            <input type="text" name="firstName" placeholder="First Name"><br>
+            <input type="text" name="familyName" placeholder="Family Name"><br>
+            <input type="email" name="email" placeholder="Email"><br>
+            <input type="password" name="password" placeholder="Password"><br>
+            <input id="customerInput" type="submit" value="Sign Up">
+        </form>
+        {{!-- Links to login page if user does have an account --}}
+        <p id="loginLink">Have an account already?  <a class="link" href="/customer/user-management/login">Login</p>
+    <div>
+</section>
+

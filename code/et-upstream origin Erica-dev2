@@ -1,0 +1,260 @@
+[33mcommit 7f2f9b7a4e148041ee39a1e8027383872fcb2df5[m[33m ([m[1;36mHEAD -> [m[1;32mErica-dev2[m[33m)[m
+Author: Erica <ericaish@hotmail.com>
+Date:   Fri May 7 01:45:22 2021 +1000
+
+    updated branch
+
+[33mcommit fded1660d9923c2dcfea6197e8cf13f94e8b978f[m
+Author: Leonard Wang <you@example.com>
+Date:   Thu May 6 23:08:59 2021 +1000
+
+    Added user details to README
+
+[33mcommit 005e8206466779bad1f4c29990375b21b66f002e[m
+Author: Leonard Wang <you@example.com>
+Date:   Thu May 6 22:55:21 2021 +1000
+
+    Updated responsive design for login and signup forms
+
+[33mcommit f14bdf46d03e7417e5e06ad43bf53ae2f01e54e2[m
+Merge: eab6f58 da3e582
+Author: Leonard Wang <you@example.com>
+Date:   Thu May 6 22:49:33 2021 +1000
+
+    Added responsive design to login and sign up
+
+[33mcommit da3e582497a3342f494b810fd0123f12467db5f4[m[33m ([m[1;31morigin/leonard-dev[m[33m, [m[1;32mleonard-dev[m[33m)[m
+Author: Leonard Wang <you@example.com>
+Date:   Thu May 6 22:43:57 2021 +1000
+
+    Added responsive design to login and sign up
+
+[33mcommit eab6f58d18748752cf426125457093fbb8aac277[m
+Merge: ea9900a b7d5844
+Author: irelandn <81199446+irelandn@users.noreply.github.com>
+Date:   Thu May 6 22:30:00 2021 +1000
+
+    Merge pull request #6 from INFO30005-2021-SM1/Tash-dev-del3
+    
+    Tash dev del3
+
+[33mcommit b7d584449428f54c2347decca07505a53cc5bc30[m[33m ([m[1;31morigin/Tash-dev-del3[m[33m)[m
+Author: irelandn <irelandn@student.unimelb.edu.au>
+Date:   Thu May 6 22:25:25 2021 +1000
+
+    Updated style.css with relevant styling for viewing one menu item
+
+[33mcommit c83c7c6fab75b7202ba35188a45e49470980c3b9[m
+Merge: 9a79e96 ea9900a
+Author: irelandn <irelandn@student.unimelb.edu.au>
+Date:   Thu May 6 22:00:18 2021 +1000
+
+    Merge branch 'main' of https://github.com/INFO30005-2021-SM1/project-t08-google2-0 into Tash-dev-del3
+
+[33mcommit ea9900ac545f8e49b6870eff03363792b39be2e9[m
+Merge: 2e599ad 79d5678
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Thu May 6 15:33:46 2021 +1000
+
+    Merged Damian-Dev with Main
+
+[33mcommit 79d567814b886199f60283003d537bcb11f065ed[m[33m ([m[1;31morigin/Damian-Dev[m[33m)[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Thu May 6 15:31:58 2021 +1000
+
+    Changed helper file name
+
+[33mcommit 2e599adedfd91da254601182f431b78a08d86c66[m
+Author: Leonard Wang <you@example.com>
+Date:   Thu May 6 15:08:37 2021 +1000
+
+    Updating branch
+
+[33mcommit 4764f6697d57947f5de32384c469586e38aa7ab6[m
+Author: Leonard Wang <you@example.com>
+Date:   Thu May 6 14:58:18 2021 +1000
+
+    Added a dynamic navigation bar upon login/logout
+
+[33mcommit 2e9d3eb35104d397ef41d7b17f060c838328eaa5[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Thu May 6 13:52:55 2021 +1000
+
+    Sort orders by descending date
+
+[33mcommit 52cbb15c3bea143c5f3205c9d6fa2652560427a4[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Thu May 6 04:26:11 2021 +1000
+
+    Removed redundant code
+
+[33mcommit 791a09f939e52b1c9cd972f91b80776383c663ac[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Thu May 6 04:10:42 2021 +1000
+
+    Refined order detail pages
+
+[33mcommit 1bb26e9b764651be2452a5ede16ab47959e09393[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Wed May 5 22:28:59 2021 +1000
+
+    Added create order validation
+
+[33mcommit 9ea560b047d9f559b75dbe5d008320b5c7ac8da7[m
+Author: Leonard Wang <you@example.com>
+Date:   Wed May 5 16:59:56 2021 +1000
+
+    Added authetnication and sessions
+
+[33mcommit 09216b4af09f17bb4d876d00a81dfb4f6743d7ff[m
+Merge: 0ca97ee d0f8b09
+Author: Leonard Wang <you@example.com>
+Date:   Wed May 5 12:59:29 2021 +1000
+
+    Merge branch 'leonard-dev' into main
+
+[33mcommit d0f8b098e4c1075e845c768603e14c3730460592[m
+Author: Leonard Wang <you@example.com>
+Date:   Wed May 5 12:55:52 2021 +1000
+
+    Set up login and sign up authentication using passport
+
+[33mcommit 9a79e9643a074bc69804ae786723ce4eb80b9b7a[m
+Author: irelandn <irelandn@student.unimelb.edu.au>
+Date:   Tue May 4 18:19:05 2021 +1000
+
+    Have link from menu to each item details through *more details* button, have button to add stright to cart from menu **add to cart**. Colour and text format is close to mockup.
+
+[33mcommit 0ca97ee5e002cc73198e0abf69dd5bd751a9875a[m
+Merge: 4aaff17 0414073
+Author: Your Name <you@example.com>
+Date:   Tue May 4 00:35:02 2021 +1000
+
+    Added sign up page
+
+[33mcommit 0414073b51e35bfc18ec393669730fcab5be61a8[m
+Author: Your Name <you@example.com>
+Date:   Tue May 4 00:33:06 2021 +1000
+
+    Added sign up page
+
+[33mcommit f35d5d17af287c5c9d8c818fbfa50e2ccd9b6120[m
+Author: irelandn <irelandn@student.unimelb.edu.au>
+Date:   Mon May 3 23:19:26 2021 +1000
+
+    Menu page has two columns, rendered photos, links to more details on each item, no functionality add to cart button
+
+[33mcommit 4aaff177159398a08a374ca7bfcc613bdc4483f4[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Mon May 3 19:03:46 2021 +1000
+
+    Stylised order page
+
+[33mcommit 25b6b67b992c233498c540c2670f7a92cfc2c0fd[m
+Author: Your Name <you@example.com>
+Date:   Mon May 3 17:04:43 2021 +1000
+
+    Refresh update
+
+[33mcommit 4486cc20bbd9127ba35ea47f9fe9a62c0f8ec1bb[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Mon May 3 03:37:07 2021 +1000
+
+    Added handlebars for viewing orders
+
+[33mcommit 107ee67fcdbab128276b81d151b1e9364b42225b[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Mon May 3 02:01:10 2021 +1000
+
+    Modulated order routes
+
+[33mcommit 011edbc3a27720dd708691edb67703165476a361[m
+Author: Your Name <you@example.com>
+Date:   Sun May 2 23:45:23 2021 +1000
+
+    Styled the login page
+
+[33mcommit 0f6e401306f6be18c9b96e4de96fcdfeedaa64af[m
+Author: irelandn <irelandn@student.unimelb.edu.au>
+Date:   Sun May 2 18:02:41 2021 +1000
+
+    Have two menus functional at /menu: they are currently top and bottom
+
+[33mcommit 3894ee9aba306889ca4595e725a9e9f46f50c199[m
+Author: Your Name <you@example.com>
+Date:   Sun May 2 17:54:25 2021 +1000
+
+    CSS implemented onto Login Page
+
+[33mcommit 932bb6fccb7068748dd175a993436df2ba5ce430[m
+Author: Your Name <you@example.com>
+Date:   Sat May 1 16:37:35 2021 +1000
+
+    Implemeneted preliminary login page
+
+[33mcommit abae3fc989326f89aad4cb584e60d92460a1228d[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Sat May 1 15:38:33 2021 +1000
+
+    Simple HBS implementation
+
+[33mcommit ced011761e3952f2c01971fd23e05903acc1407d[m
+Merge: e91f45e 5deeb94
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Sat May 1 12:49:16 2021 +1000
+
+    Merge branch 'Damian-Dev' into main
+
+[33mcommit 5deeb945770d3c810255a7a721e19e73b93da6f3[m
+Author: Damian.Wang <damo@Panda.localdomain>
+Date:   Sat May 1 12:46:51 2021 +1000
+
+    Added find placed order functions
+
+[33mcommit e91f45e7aa92f8ae8cedcf7adda2e0f4f8b777ee[m
+Author: Your Name <you@example.com>
+Date:   Sat May 1 12:45:56 2021 +1000
+
+    Created login functinality
+
+[33mcommit 96098aa113d98fefd20a6ab792b3a6cc2cb6c5bd[m
+Author: Your Name <you@example.com>
+Date:   Sat May 1 11:26:55 2021 +1000
+
+    Clone main branch
+
+[33mcommit ee35ba17071dfa8377096426707c410caee96a34[m
+Author: Your Name <you@example.com>
+Date:   Fri Apr 23 22:45:52 2021 +1000
+
+    Added coonnection string to README file
+
+[33mcommit e86548cf66e578f9712fa4caf9fe5c1bbbe09ea0[m
+Author: Your Name <you@example.com>
+Date:   Fri Apr 23 22:38:49 2021 +1000
+
+    Updated README file for final submission
+
+[33mcommit 23ccc0e988d59bd1b5468497e6bc730762fe9145[m
+Merge: 9d925fa 60367d9
+Author: Kumi-Sotomatsu <68806595+Kumi-s17@users.noreply.github.com>
+Date:   Fri Apr 23 22:30:32 2021 +1000
+
+    Merge branch 'main' of https://github.com/INFO30005-2021-SM1/project-t08-google2-0 into main
+
+[33mcommit 9d925fa9cf435cbf6c3c62c242d731f3ec26a6ea[m
+Author: Kumi-Sotomatsu <68806595+Kumi-s17@users.noreply.github.com>
+Date:   Fri Apr 23 22:29:03 2021 +1000
+
+    updated readme
+
+[33mcommit 60367d9ffabb7aea56b5d0a70ce0251f98858f74[m
+Author: Your Name <you@example.com>
+Date:   Fri Apr 23 22:28:41 2021 +1000
+
+    Added Live Server URL
+
+[33mcommit cfa6b9609b5937109470e67ce128d4715ed30353[m
+Merge: 535db9c 38103a0
+Author: Kumi-Sotomatsu <68806595+Kumi-s17@users.noreply.github.com>
+Date:   Fri Apr 23 

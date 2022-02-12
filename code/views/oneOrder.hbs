@@ -1,0 +1,251 @@
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+ <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin="">
+</script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<div id="oneOrderContainer">
+    <div id = "left1">
+        <div id="mapid" style="width:90%"></div>
+    </div>
+
+<script>
+  //Set view as Melbourne as that is where the business is based
+    var mymap = L.map('mapid').setView([-37.81394,144.96342], 14);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoiaXJlbGFuZG4iLCJhIjoiY2twMmYxMmZsMDFudDJvczRpZWk1cnh6dCJ9.Sxv1SSVKg88CjgXVRbvIsg'
+}).addTo(mymap);
+</script>
+<script>
+  $(document).ready(function(){
+    if(!{{order.late}}){
+        $("#discount-row").hide()
+    }
+    if({{order.orderReady}}){
+        $("#change-modify").hide()
+    }
+    if(!{{order.orderFulfilled}}){
+        $("#feedback-container").hide()
+    }
+    var marker=L.marker([{{order.vendorId.latitude}}, {{order.vendorId.longitude}}],13).addTo(mymap);
+     marker.bindPopup("<p style='color:black'>{{order.vendorId.vendorName}}</p>").openPopup();
+
+  })
+</script>
+
+<script>
+ (function refreshStatus(){
+    $.ajaxSetup({
+        cache: false
+    });
+    $.ajax({
+        url : "/customer/order/status/{{order._id}}",
+        type :'GET',
+        //contentType: "application/json; charset=utf-8",
+        dataType: "json",
+        async: true,
+        success : function(response){
+            $("#status-text").text(response.status)
+            if(response.late){
+                $("#discount-row").show()
+            }
+            if(response.status == "Ready"){
+                $("#change-modify").hide()
+            }
+            if(response.status == "Fulfilled") {
+                console.log(response.status)
+                $("#feedback-container").show()
+            }
+        }
+    }).then (function(response){
+        setTimeout(refreshStatus, 1000)
+    })
+})()  
+</script>
+
+
+
+
+<div id = "right1">
+{{#if order}}
+<br>
+<div class="headerContainer">
+<h1 id="orderPlaceHeader"> Order at {{order.vendorId.vendorName}}</h1>
+</div>
+<center>
+<p> Status:
+    <b id= "status-text">{{status}}</b>
+</p>
+<p> Placed at {{#formatDateAndTime order.orderPlacedTime}}{{/formatDateAndTime}}</p>
+{{#if order.orderCancelled}} 
+    <p> Cancelled at {{#formatDateAndTime order.orderCancelledTime}}{{/formatDateAndTime}}</p>
+{{/if}}
+</center>
+
+<section id = "orderDetailsTable-Container">
+    <center>
+    <table id = "orderDetailsTable">
+        <colgroup>
+            <col style="width:20%">
+            <col style="width:20%">
+            <col style="width:20%">
+            <col style="width:20%">
+            <col style="width:20%">
+        </colgroup>
+        <tr>
+            <td><b></td>
+            <td><b>Name</td>
+            <td align = "right"><b>Qty</td>
+            <td align = "right"><b>Price</td>
+            <td align = "right"><b>Subtotal</b></td>
+        </tr>
+        {{#each itemList}}
+            <tr>
+                <td>
+                    <section id="orderItem-picture">
+                        <img class="detailsPage" src="https://source.unsplash.com/{{this.menuItemId.photoId}}" alt="hosted by Unsplash">
+                    </section>
+                </td>
+                <td>
+                    {{this.menuItemId.itemName}}
+                </td>
+                <td>
+                    <p align = "right">{{this.qty}}</p>
+                </td>
+                <td>
+                    <p align = "right">${{this.menuItemId.itemPrice}}</p>
+                </td>
+                <td>
+                    <p align = "right">${{this.subtotal}}</p>
+                </td>
+            </tr>
+        {{/each}}
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td align = "right">
+                <b>Total Cost</b>
+            </td>
+            <td align = "right">
+                <b>${{total}}</b>
+            </td>
+        </tr>
+    </table>
+    <p id = "discount-row", text-align = "right">
+        Discount applied to late order<br>
+        <b>New Discounted Total:</b>
+        <b>${{discountTotal}}</b>
+    <p>
+    
+    </center>
+</section>
+
+
+<section id = "orderDetailsList-Container">
+    <ul style="list-style-type:none">
+    {{#each itemList}}
+        <li>
+            <div id = "orderItem-Container">
+                <div id = "orderItemImage-Container">
+                    <section id="orderItem-picture">
+                        <img class="detailsPage" src="https://source.unsplash.com/{{this.menuItemId.photoId}}" alt="hosted by Unsplash">
+                    </section>
+                </div>
+                <div id = "orderItemDetails-Container">
+                    <div>
+                        <b>{{this.menuItemId.itemName}}</b>
+                    </div>
+                    <div>
+                        qty: {{this.qty}}
+                    </div>
+                    <div>
+                        ${{this.menuItemId.itemPrice}}
+                    </div>
+                </div>
+            </div>
+            <p></p>
+        </li>
+    {{/each}}
+    </ul>
+    </section>
+    <p align = "right"><b>Total Cost ${{total}}</b></p>
+
+
+<div id = "change-modify">
+    <center>
+    {{#if cutoff}}
+        
+        
+        {{!-- Adapted from https://www.w3schools.com/howto/howto_js_countdown.asp --}}
+        
+        <script>
+        // Set the date we're counting down to
+        var countDownDate = new Date("{{cutoffTime}}").getTime();
+
+        // Update the count down every 1 second
+        var x = setInterval(function() {
+
+        // Get today's date and time
+        var now = new Date().getTime();
+
+        // Find the distance between now and the count down date
+        var distance = countDownDate - now;
+
+        // Time calculations for days, hours, minutes and seconds
+        // var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        // var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+        // Display the result in the element with id="demo"
+        document.getElementById("countdownClock").innerHTML = minutes + "m " + seconds + "s ";
+
+        // If the count down is finished, write some text
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("confirmed-status").innerHTML = "<p> Your order was confirmed at {{#formatDateAndTime cutoffTime}}{{/formatDateAndTime}}</p>";
+        }
+        }, 1000);
+        </script>
+        <div id="confirmed-status">
+            <p>  Cancel or Modify Order before {{#formatDateAndTime cutoffTime}}{{/formatDateAndTime}}</p>
+            <p id="countdownClock">Time</p>
+            <form method="post" action="/customer/order/modifyOrder/{{order._id}}">
+                <input id = "button1" style="margin-top:10px" type="submit" value="Modify Order">
+            </form>
+            <form method="post" action="/customer/order/cancelOrder/{{order._id}}">
+                <input id = "button1" style ="margin-top:10px" type="submit" value="Cancel Order">
+            </form>
+        </div>
+    {{else}}
+        <p> Your order was confirmed at {{#formatDateAndTime cutoffTime}}{{/formatDateAndTime}}</p>
+    {{/if}}
+
+</div>
+{{#if feedbackSubmitted}}
+    <p> Thank you for submitting feedback!</p>
+{{else}}
+    <div id='feedback-container'>
+        <form method="get" action="/customer/order/feedback/{{order._id}}">
+            <input type="submit" value="Submit Feedback">
+        </form>
+    </div>
+{{/if}}
+
+{{else}}
+<h1>Order not found</h1>
+{{/if}}
+</div>
+</div>
+
+

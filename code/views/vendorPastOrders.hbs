@@ -1,0 +1,97 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+</script>
+
+<section id="vendorPastOrders">
+
+    <h1 id="login-header">Past Orders</h1>
+
+    <table id="past-orders-list">
+        <colgroup>
+            <col style="width:20%">
+            <col style="width:20%">
+            <col style="width:20%">
+            <col style="width:20%">
+            <col style="width:20%">
+        </colgroup>
+
+        {{!-- Order list --}}
+
+        <tr id="orderListHeader">
+            <td>Customer</td>
+            <td>Order #</td>
+            <td>Placed At</td>
+            <td>Picked Up At</td>
+            <td>More Details</td>
+    
+        </tr>
+        {{#if orders}}
+        {{!-- Automatically updates list every 2 seconds for new orders and cancelled orders --}}
+        <script src="https://twitter.github.io/typeahead.js/js/handlebars.js"></script>
+            {{#each orders}}
+            {{!-- Determines button states on document load --}}
+            <script>
+                $(document).ready(function () {
+                    //Hide item list menu
+                    $("#{{this._id}}more-details").hide()
+                })
+            </script>
+            {{!-- Reveal more details when button clicked--}}
+            <script>
+                $(function () {
+                    $("#" + "{{this._id}}" + "more-details-button").click(function (event) {
+                        $("#{{this._id}}more-details").slideToggle()
+                    });
+                    // end  
+                });
+            </script>
+            <tr>
+                <td>   
+                    <Strong>{{this.customerId.firstName}}</Strong>
+                </td>
+                <td>
+                    {{this.orderNumber}}
+                </td>
+                </td>
+                <td>
+                    {{#formatDateAndTime this.orderPlacedTime}}{{/formatDateAndTime}}
+                </td>
+                <td>
+                    {{#formatDateAndTime this.orderFulfilledTime}}{{/formatDateAndTime}}
+                </td>
+                <td>
+                <button class="remove-item-button" id={{this._id}}more-details-button>
+                    ...
+                </button>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="5">
+                    <table id="{{this._id}}more-details">
+            
+                        <tr id="orderListHeader">
+                            <td>Item</td>
+                            <td>Price</td>
+    
+                        </tr>            
+                        {{#each this.itemList}}
+                        <tr>
+                            <td>{{this.qty}} x {{this.menuItemId.itemName}}</td>
+                            <td>${{this.menuItemId.itemPrice}}</td>
+                            
+                        </tr>
+                        {{/each}}
+                        <td>Total = $ {{this.total}}</td>
+                    </table>
+                </td>
+            </tr>
+
+            {{/each}}
+        </table>
+        
+        {{else}}
+        <center> No Past Orders 
+        {{/if}}
+</section>

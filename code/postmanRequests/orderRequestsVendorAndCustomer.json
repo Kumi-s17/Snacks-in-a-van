@@ -1,0 +1,268 @@
+{
+	"info": {
+		"_postman_id": "7e2ab371-ca58-44ab-849a-c913a723c879",
+		"name": "Van App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Start New Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "    {\r\n        \"customerId\": \"Customer4\",\r\n        \"vendorId\": \"6080f16dc6055a9fc72ff0b3\",\r\n        \"itemList\": [\r\n            {\"itemId\":\"607e325ec52713e5e9a3279c\", \"qty\":4}\r\n        ],\r\n        \"orderPlaced\": false,\r\n        \"orderFulfilled\": false\r\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://snacksinavan-google2.herokuapp.com/customer/order/add",
+					"protocol": "https",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customer",
+						"order",
+						"add"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Outstanding Orders",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://snacksinavan-google2.herokuapp.com/vendor/order/unfulfilled/6080f16dc6055a9fc72ff0b3",
+					"protocol": "https",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"vendor",
+						"order",
+						"unfulfilled",
+						"6080f16dc6055a9fc72ff0b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Update Order to Fulfilled",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"orderFulfilled\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://snacksinavan-google2.herokuapp.com/vendor/order/update/6080194ff61d3952287053b2",
+					"protocol": "https",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"vendor",
+						"order",
+						"update",
+						"6080194ff61d3952287053b2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "View Menu",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://snacksinavan-google2.herokuapp.com/customer/menu/607e325ec52713e5e9a3279c",
+					"protocol": "https",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customer",
+						"menu",
+						"607e325ec52713e5e9a3279c"
+					]
+				},
+				"description": "Get all menu items available to customers"
+			},
+			"response": []
+		},
+		{
+			"name": "View Details of Small Cake",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://snacksinavan-google2.herokuapp.com/customer/menu/607e325ec52713e5e9a3279c",
+					"protocol": "https",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customer",
+						"menu",
+						"607e325ec52713e5e9a3279c"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "openVanForOrders",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"readyForOrders\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://snacksinavan-google2.herokuapp.com/vendor/status/updateAvailability/6080f16dc6055a9fc72ff0b3",
+					"protocol": "http",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"vendor",
+						"status",
+						"updateAvailability",
+						"6080f16dc6055a9fc72ff0b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "closeVan",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"readyForOrders\": false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://snacksinavan-google2.herokuapp.com/vendor/status/updateAvailability/6080f16dc6055a9fc72ff0b3",
+					"protocol": "http",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"vendor",
+						"status",
+						"updateAvailability",
+						"6080f16dc6055a9fc72ff0b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateLocationDescription",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"locationDescription\": \"updated location description for location 1\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://snacksinavan-google2.herokuapp.com/vendor/status/updateLocationDescription/6080f16dc6055a9fc72ff0b3",
+					"protocol": "http",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"vendor",
+						"status",
+						"updateLocationDescription",
+						"6080f16dc6055a9fc72ff0b3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateGeoLocation",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"longitude\": \"933.923\",\n    \"latitude\": \"8.32\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://snacksinavan-google2.herokuapp.com/vendor/status/updateGeoLocation/6080f16dc6055a9fc72ff0b3",
+					"protocol": "http",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"vendor",
+						"status",
+						"updateGeoLocation",
+						"6080f16dc6055a9fc72ff0b3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

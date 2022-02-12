@@ -1,0 +1,15 @@
+<div class="header">
+    <div class="navbarvendor" id="mynavbarvendor">
+        <a href="/vendor/setLocation" class="logo" style="font-size:20px; padding: none">Snacks In a Van</a>
+
+        {{!-- only show view order link if customer is logged in --}}
+        {{#if isAuthenticated}}
+        <a class="nav-link" href="/vendor/setLocation"> Location</a>
+        <a class="nav-link" href="/vendor/order/unfulfilled"> Current Orders</a>
+        <a class="nav-link" href="/vendor/order/past"> Past Orders</a>
+        <a class="nav-link" href="/vendor/logout"> Logout</a>
+        {{else}}
+        <a class="nav-link" href="/vendor/login"> <i class="fas fa-user"></i> Login</a>
+        {{/if}}
+    </div>
+</div>

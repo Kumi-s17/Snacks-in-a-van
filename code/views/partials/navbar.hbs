@@ -1,0 +1,52 @@
+<div class="header">
+    <div class="navbar" id="mynavbar">
+        <!-- Left-aligned links (default) -->
+        {{!-- <div class="navbar-logo">
+            <i class="fas fa-shuttle-van"></i> Snacks in a Van</P>
+        </div> --}}
+        <a href="/customer/" class="logo" style="font-size:20px; padding: none">Snacks In a Van</a>
+        <a class="nav-link" href="/"> <i class="fas fa-chevron-left"></i> Back</a>        
+        {{!-- only show view order link if customer is logged in --}}
+        {{#if isAuthenticated}}
+            <a class="nav-link" href="/customer/order/previousOrders"> View Order</a>
+            <a class="nav-link" href="/customer/user-management/profile"> Profile </a>
+            {{#if onMenu}}
+                <a class="nav-link" href="/customer/order/cart/{{cartVendor}}"> <i class="fas fa-shopping-cart"></i> Cart </a>
+            {{/if}} 
+            <a class="nav-link" href="/customer/user-management/logout"> <i class="fas fa-user"></i> Logout</a>
+        {{else}}
+            <a class="nav-link" href="/customer/user-management/login"> <i class="fas fa-user"></i> Login</a>
+        {{/if}}
+        <a href="javascript:void(0);" class="icon" onclick="navbarCollapse()"><i class="fa fa-bars"></i></a>
+    </div>
+</div>
+
+
+{{!-- Toggle between adding and removing the "responsive" 
+class to topnav when the user clicks on the icon  --}}
+<script>
+    function navbarCollapse() {
+        var x = document.getElementById("mynavbar");
+        if (x.className === "navbar") {
+        x.className += " responsive";
+        } else {
+        x.className = "navbar";
+        }
+    }
+</script>
+
+{{!-- menu is sticky when scrolling but not still when still --}}
+<script>
+    window.onscroll = function () { myFunction() };
+
+    var navbar = document.getElementById("mynavbar");
+    var sticky = navbar.offsetTop;
+
+    function myFunction() {
+        if (window.pageYOffset >= sticky) {
+            navbar.classList.add("sticky")
+        } else {
+            navbar.classList.remove("sticky");
+        }
+    }
+</script>

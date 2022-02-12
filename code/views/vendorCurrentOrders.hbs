@@ -1,0 +1,97 @@
+
+<section id="vendorCurrentOrders">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    {{#if orders}}
+    {{!-- Automatically updates list every 2 seconds for new orders and cancelled orders --}}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.3.0/handlebars.min.js"></script>
+
+    <script type="text/javascript">
+        (function refreshOrders(previousTime){
+            const currentTime = new Date().getTime()
+            if(!previousTime){
+                previousTime = currentTime
+            }
+            console.log(previousTime, currentTime)
+            $.ajaxSetup({
+                cache: false
+            });
+            $.ajax({
+                url : "/vendor/order/newUnfulfilled/" + String(currentTime) + "/" + String(previousTime),
+                type :'GET',
+                //contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                success : function(response){
+                    console.log(response.newOrders)
+                    //Add orders to end of list
+                    if(response.newOrders){
+                        for(i = 0; i < response.newOrders.length; i++){
+                            $("#current-orders-list").append("<tr><td colspan=7> Refresh for New Order received at "+ response.newOrders[i].formattedOrderPlacedTime +"</td></tr>")
+                        }
+                    }
+                    console.log(response.cancelledOrders)
+                    if(response.cancelledOrders){
+                         for(i = 0; i < response.cancelledOrders.length; i++){
+                            $("#"+response.cancelledOrders[i]._id+"order-row")
+                                .children('td, th')
+                                .animate({ padding: 0 })
+                                .wrapInner('<div />')
+                                .children()
+                                .slideUp(function() {$(this).remove()});
+                        }
+                    }
+
+                    console.log(response.modifiedOrders)
+                    if(response.modifiedOrders){
+                         for(i = 0; i < response.modifiedOrders.length; i++){
+                             $("#"+response.modifiedOrders[i]._id+"order-row")
+                                .children('td, th')
+                                .animate({ padding: 0 })
+                                .wrapInner('<div />')
+                                .children()
+                                .slideUp(function() {$(this).remove()});
+                        }
+                    }
+                }
+            }).then (function(response){
+                setTimeout(refreshOrders, 5000, response.currentTime)
+            })
+            //Query with nothing
+            //Return with orders that have been cancelled or modified in last 2 seconds
+        })()  
+    </script>
+
+
+<h1 id="login-header">Current Orders</h1>
+
+    <table id="current-orders-list">
+        <colgroup>
+            <col style="width:14%">
+            <col style="width:14%">
+            <col style="width:14%">
+            <col style="width:14%">
+            <col style="width:14%">
+            <col style="width:14%">
+            <col style="width:14%">
+        </colgroup>
+    
+        {{!-- Order list --}}
+    
+        <tr id="orderListHeader">
+            <td>Customer</td>
+            <td>Order #</td>
+            <td>Date</td>
+            <td>Time Left</td>
+            <td>Ready</td>
+            <td>Pick Up</td>
+            <td>More Details</td>
+        </tr>
+    
+        {{#each orders}}
+            {{>vendorOneOrder}}
+        {{/each}}
+    </table>
+    {{else}}
+    <center> No Current Orders 
+    {{/if}}
+</section>

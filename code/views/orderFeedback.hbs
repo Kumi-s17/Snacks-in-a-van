@@ -1,0 +1,27 @@
+{{!-- Order feedback page --}}
+<div class="star-rating">
+    <div>
+        <h2 id="thanks-feedback">Thanks for snacking with us!</h2>
+        <h2 id="ask-feedback">How was your experience?</h2>
+    </div>
+     {{!-- A form to rate order out of 5 stars --}}
+    <div class="star-input">
+        <form id="feedbackForm" method="post" action="/customer/order/feedback/{{orderId}}">
+            <div class="starsContainer">
+                <input type="radio" name="rating" id="rating-5" value=5>
+                <label for="rating-5" class="fas fa-star"></label>
+                <input type="radio" name="rating" id="rating-4" value=4>
+                <label for="rating-4" class="fas fa-star"></label>
+                <input type="radio" name="rating" id="rating-3" value=3>
+                <label for="rating-3" class="fas fa-star"></label>
+                <input type="radio" name="rating" id="rating-2" value=2>
+                <label for="rating-2" class="fas fa-star"></label>                
+                <input type="radio" name="rating" id="rating-1" value=1>
+                <label for="rating-1" class="fas fa-star"></label>
+            </div>
+            {{!-- A form to enter an optional comment --}}
+            <textarea rows="5" id="comment" name="comment" placeholder="Please let us know what you think!"></textarea><br>
+            <button type="submit" class="submit-rating">Submit</button>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,54 @@
+{
+	"info": {
+		"_postman_id": "5a907401-7a68-4db2-8cb3-41d35ab41394",
+		"name": "Customer requests",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://snacksinavan-google2.herokuapp.com/customer/menu",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://snacksinavan-google2.herokuapp.com/customer/menu/607e325ec52713e5e9a3279c",
+					"protocol": "https",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customer",
+						"menu",
+						"607e325ec52713e5e9a3279c"
+					]
+				},
+				"description": "Get all menu items available to customers"
+			},
+			"response": []
+		},
+		{
+			"name": "https://snacksinavan-google2.herokuapp.com/customer/menu/607e325ec52713e5e9a3279c",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://snacksinavan-google2.herokuapp.com/customer/menu/607e325ec52713e5e9a3279c",
+					"protocol": "https",
+					"host": [
+						"snacksinavan-google2",
+						"herokuapp",
+						"com"
+					],
+					"path": [
+						"customer",
+						"menu",
+						"607e325ec52713e5e9a3279c"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

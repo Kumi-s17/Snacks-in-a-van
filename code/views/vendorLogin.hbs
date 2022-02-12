@@ -1,0 +1,20 @@
+{{!-- Vendor login page --}}
+<section id="vendorLogin">
+    <div id="loginContainer">
+        <h1 id="login-header">Log into Your Van</h1>
+        <div id="loginError">
+            {{!-- Incorrect details will display an error message --}}
+            {{loginMessage}}
+        </div>
+            {{!-- A form where vendor will input their user details --}}
+            <form method="post" action="/vendor/login">
+                <label for="text"></label>
+                <input type="text" name="vendorName" placeholder="Van Name"><br>
+                <label for="password"></label>
+                <input type="password" name="password" placeholder="Password"><br>
+                <label for="submit"></label>
+                <input id="vendorInput" type="submit" value="Login">
+            </form>
+    </div>
+</section>
+

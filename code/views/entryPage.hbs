@@ -1,0 +1,21 @@
+{{!-- Entry point where the user chooses either the customer or vendor app --}}
+<section id="entryPage">
+    <h2 id="entryPage-Header">Select which app you would like to use:</h2>
+    <body>
+
+        <div id="entryPage-container">
+            {{!-- Customer app --}}
+            <div class="app-item1">
+                <h2 class="entrytitle">Customer</h2>
+                <img src="https://source.unsplash.com/71u2fOofI-U">
+                {{!-- Clicking on the button will direct the user to the customer app --}}
+                <button id="button1" onclick="location.href = '/customer/';">Click Here</button>
+            </div>
+            {{!-- Vendor app --}}
+                <div class="app-item2">
+                    <h2 class="entrytitle">Vendor</h2>
+                    <img src="https://source.unsplash.com/9fHMo1-5Io8">
+                    {{!-- Clicking on the button will direct the user to the vendor app --}}
+                    <button id="button1" onclick="location.href = '/vendor/';">Click Here</button>
+                </div>
+            </div>

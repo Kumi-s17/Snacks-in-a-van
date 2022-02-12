@@ -1,0 +1,229 @@
+<div id="cartPage">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+    $(function () {
+        // don't cache ajax or content won't be fresh
+        $.ajaxSetup({
+            cache: false
+        });
+        $(document).ready(function () {
+            if ("{{cart}}") {
+                $("#cartGrid").show()
+                //$("#orderSummary").show()
+                $("#empty-cart").hide()
+            }
+            else {
+                $("#cartGrid").hide()
+                //$("#orderSummary").hide()
+                $("#empty-cart").show()
+            }
+        })
+        // end  
+    });
+    </script>
+
+    <div id="cartGrid">
+        <section class="left2">
+            <section id="orderList">
+                <div id="orderListContainer">
+                    <h4 id="orderList-title">Your Order</h4>
+                    {{!-- empty cart script --}}
+
+                    <center>
+                        {{!-- {{#if cart}} --}}
+                        <div id="cart-itemList">
+                            <div class="cart">
+                                <table id="cart-itemTable">
+                                    <colgroup>
+                                        <col style="width:19%">
+                                        <col style="width:19%">
+                                        <col style="width:19%">
+                                        <col style="width:19%">
+                                        <col style="width:19%">
+                                        <col style="width:5%">
+                                    </colgroup>
+
+                                    {{!-- Order list --}}
+
+                                    <tr id="orderListHeader">
+                                        <td>Item</td>
+                                        <td></td>
+                                        <td class="qty-column">Qty</td>
+                                        <td class="price-column">Price</td>
+                                        <td>Subtotal</td>
+                                        <td></td>
+                                    </tr>
+
+                                    {{#each cart}}
+                                    {{!-- Each item in cart --}}
+                                    {{!-- Decrease qty JQUERY AJAX Function --}}
+                                    <script>
+                                        $(function () {
+                                            // don't cache ajax or content won't be fresh
+                                            $.ajaxSetup({
+                                                cache: false
+                                            });
+                                            $("#" + "{{@index}}" + "decrease-qty").click(function () {
+                                                $.ajax({
+                                                    url: "/customer/order/updateOneItemQty/" + "{{../orderId}}" + "/" + "{{this.menuItemId._id}}",
+                                                    type: 'post',
+                                                    data: { increment: -1 },
+                                                    // contentType: "application/json; charset=utf-8",
+                                                    dataType: "json",
+                                                    async: true,
+                                                    success: function (response) {
+                                                        $("#" + "{{@index}}" + "item-qty").text(response.qty)
+                                                        $("#" + "{{@index}}" + "item-subtotal").text("$" + ("{{this.menuItemId.itemPrice}}" * response.qty).toFixed(2))
+                                                        $("#total-cost").text((Number(document.getElementById("total-cost").textContent) + (Number("{{this.menuItemId.itemPrice}}") * response.qtyChange)).toFixed(2))
+                                                    }
+                                                })
+                                            });
+                                            // end  
+                                        });
+                                    </script>
+
+                                    {{!-- Increase Qty JQUERY AJAX Function--}}
+                                    <script>
+                                        $(function () {
+                                            // don't cache ajax or content won't be fresh
+                                            $.ajaxSetup({
+                                                cache: false
+                                            });
+                                            $("#" + "{{@index}}" + "increase-qty").click(function () {
+                                                $.ajax({
+                                                    url: "/customer/order/updateOneItemQty/" + "{{../orderId}}" + "/" + "{{this.menuItemId._id}}",
+                                                    type: 'post',
+                                                    data: { increment: 1 },
+                                                    //contentType: "application/json; charset=utf-8",
+                                                    dataType: "json",
+                                                    async: true,
+                                                    success: function (response) {
+                                                        $("#" + "{{@index}}" + "item-qty").text(response.qty)
+                                                        $("#" + "{{@index}}" + "item-subtotal").text("$" + ("{{this.menuItemId.itemPrice}}" * response.qty).toFixed(2))
+                                                        $("#total-cost").text((Number(document.getElementById("total-cost").textContent) + (Number("{{this.menuItemId.itemPrice}}") * response.qtyChange)).toFixed(2))
+                                                    }
+                                                })
+                                            });
+                                            // end  
+                                        });
+                                    </script>
+
+                                    {{!-- Remove Item JQUERY AJAX Function--}}
+                                    <script>
+                                        $(function () {
+                                            // don't cache ajax or content won't be fresh
+                                            $.ajaxSetup({
+                                                cache: false
+                                            });
+                                            $("#" + "{{@index}}" + "remove-item").click(function (event) {
+                                                $.ajax({
+                                                    url: "/customer/order/removeOneItemFromCart/" + "{{../orderId}}" + "/" + "{{this.menuItemId._id}}",
+                                                    type: 'POST',
+                                                    data: {},
+                                                    //contentType: "application/json; charset=utf-8",
+                                                    dataType: "json",
+                                                    async: true,
+                                                    success: function (response) {
+                                                        $("#total-cost").text((Number(document.getElementById("total-cost").textContent) + (Number("{{this.menuItemId.itemPrice}}") * -document.getElementById("{{@index}}item-qty").textContent)).toFixed(2))
+                                                        $("#{{@index}}item-row").remove()
+                                                        if(response.cartEmpty){
+                                                            $("#cartGrid").hide()
+                                                            $("#empty-cart").show()
+                                                        }
+                                                    }
+                                                })
+                                            });
+                                            // end  
+                                        });
+                                    </script>
+
+                                    {{!-- table body start --}}
+                                    <tr id="{{@index}}item-row" , class="order-row">
+                                        <td>
+                                            <!-- item image-->
+                                            <div id="orderItemImage-Container">
+                                                <section id="orderItem-picture">
+                                                    <img class="detailsPage"
+                                                        src="https://source.unsplash.com/{{this.menuItemId.photoId}}"
+                                                        alt="hosted by Unsplash">
+                                                </section>
+                                            </div>
+                                        </td>
+                                            <!-- item name-->
+                                        <td>
+                                            <strong><div>{{this.menuItemId.itemName}}</div></strong>
+                                        </td>
+                                        <!-- input buttons plus minus-->
+                                        <td>
+                                            <div class="plus-minus-input">
+                                                <button class="input-group-button-left" id={{@index}}decrease-qty>
+                                                    <i class="fa fa-minus-circle" aria-hidden="true"></i>
+                                                </button>
+    
+                                                <div class="input-group-field" id={{@index}}item-qty>{{this.qty}}</div>
+                                                                                           
+                                                <button class="input-group-button-right" id={{@index}}increase-qty>
+                                                    <i class="fas fa-plus-circle"></i>
+                                                </button>
+                                            </div>                                                                              
+                                        </td>
+                                        
+                                        <!-- item price -->
+                                        <td class="price-column">
+                                            <div>{{this.menuItemId.itemPrice}}</div>
+                                        </td>
+                                        <!-- item subtotal -->
+                                        <td>
+                                            <div id={{@index}}item-subtotal>${{this.subtotal}}</div>
+                                        </td>
+                                        <!-- item remove -->
+                                        <td>
+                                            <button class="removeButton" id={{@index}}remove-item>
+                                                <i class="fas fa-times"></i> 
+                                            </button>
+                                        </td>                            
+                                    </tr>
+                                    {{/each}}
+
+                                </table>
+                            </div>
+                        </div>
+                    </center>
+                </div>
+            </section>
+        </section>
+        
+        <section class="right2">
+            <section id="orderSummary">
+                <div id="orderSummaryContainer">
+                    <h4 id="orderSummary-title">Cart for {{vendorId.vendorName}}</h4>
+                    <div id="order-checkout">
+                        <center>
+                            <h3 id="summaryCost">Total Cost: $ <div id="total-cost" , style="display: inline">{{total}}
+                                </div>
+                            </h3>
+                            {{#if vendorId.readyForOrders}}
+                            <div id="checkout-button">
+                                <form action="/customer/order/orderPlaced/{{orderId}}" method="post">
+                                    <button id="button1" type="submit"
+                                        formaction="/customer/order/orderPlaced/{{orderId}}">Checkout</button>
+                                </form>
+                            </div>
+                            {{else}}
+                            <p>Orders currently not accepted</p>
+                            {{/if}}
+                            <a class="back-to-menu" href="/customer/menu/{{vendorId._id}}"><i class="fas fa-chevron-left"></i>Continue Shopping</a>
+                        </center>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </div>
+
+    <div id="empty-cart">
+        <center>
+            <h1>No Items in Cart </h1>
+        </center>
+    </div>
+</div>
+

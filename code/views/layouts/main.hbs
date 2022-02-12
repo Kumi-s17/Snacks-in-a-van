@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snacks in a Van</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lexend+Mega&family=Rammetto+One&display=swap" rel="stylesheet"> 
+    <script src="https://kit.fontawesome.com/d6dd0b5795.js" crossorigin="anonymous"></script>  
+</head>
+<body>
+    <header>
+        {{#if currentPath}}
+            {{#if (ifCurrentPath currentPath "customer")}}
+                {{> navbar}}
+            {{/if}}
+            {{#if (ifCurrentPath currentPath "vendor")}}
+                {{> navbarvendor}}
+            {{/if}}
+        {{else}}
+            {{#if (ifCurrentPath currentPath "")}}
+                {{> navbarbase}}
+            {{/if}}
+        {{/if}}    
+    </header>
+
+    <main>
+        {{{body}}}
+    </main>
+
+    <form method="post" action="/user/logout" id="logoutform">
+        <input type="hidden" name="cartAdd" id="cartAdd" />
+    </form>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+</body>
+
+</html>

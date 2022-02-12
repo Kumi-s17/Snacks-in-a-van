@@ -1,0 +1,35 @@
+{{!-- Edit customer profile page --}}
+<section id="customerProfile">
+    <div id="profileContainer">
+        <h1 id="profile-header">Your Account</h1>
+        <h4>{{email}}</h4>
+        <div id="signUpError">
+            {{!-- Incorrect details will display an error message --}}
+            {{profileMessage}}
+        </div>
+        {{!-- A form where customer can edit their first name and family name --}}
+        <form method="post" action="/customer/user-management/updateName">
+            {{!-- <input type="email" name="email" value={{email}} readonly><br>  --}}
+            <label for="firstName">First Name</label><br>
+            <input type="text" name="firstName" id="firstName" value={{firstName}}><br>
+            <label for="familyName">Family Name</label><br>
+            <input type="text" name="familyName" id="familyName" value={{familyName}}><br>
+            <input id="customerInput" type="submit" value="Update Name">
+        </form>
+        {{!-- Form to update customer password --}}
+        <form method="post" action="/customer/user-management/updatePassword">
+            <input type="hidden" name="email" value={{email}} readonly><br> 
+            <label for="password">New Password</label><br>
+            <input type="password" name="password" id="password" placeholder="Password"><br>
+            <input id="customerInput" type="submit" value="Update Password">
+        </form>
+        {{!-- <div id="passwordRequirements">
+            <p>Password must contain:</p>
+            <ul id="passwordRequirements-description">
+                <li>At least 8 characters</li>
+                <li>At least 1 alphabetical character</li>
+                <li>At least 1 numerical character</li>
+            </ul>
+        </div> --}}
+    </div>
+</section>

@@ -1,0 +1,77 @@
+
+
+    
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+   integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+   crossorigin=""/>
+    <!-- Make sure you put this AFTER Leaflet's CSS -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+   integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+   crossorigin="">
+</script>
+
+<body>
+<div id="mapid"></div>
+<div id = "vendorMapText">
+
+    <div id="setLocationButtons">
+    <center><button id = "vendorButton" onclick="getLocation()">Check Current Van Location</button></center>
+    <form method="post" action = "/vendor/status/updateLocationDescription" >
+            <label for="locationDescription"></label>
+            {{#unless readyForOrders}}
+            <input id="latitude" type="number" name="latitude" placeholder="Check Latitude" readonly>
+            <input id="longitude" type="number" name="longitude" placeholder="Check Longitude" readonly>
+            <input id="locationDescription" type="text" name="locationDescription" placeholder="Enter Location Description"><br>
+            <input id="openBusiness" type="submit" value="Open for Business">
+            {{/unless}}
+        </form>
+    <form method="post" action = "/vendor/status/close" >
+            {{#if readyForOrders}}
+            <input id="closeBusiness" type="submit" value="Close Business">
+            {{/if}}
+    </form>
+    </div>
+</div>
+
+
+<p id="demo"></p>
+
+
+</body>
+
+
+<script>
+var x = document.getElementById("demo");
+
+function getLocation() {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(showPosition);
+  } else { 
+    x.innerHTML = "Geolocation is not supported by this browser.";
+  }
+}
+
+function showPosition(position) {
+     mymap.setView([position.coords.latitude, position.coords.longitude], 14);
+     var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(mymap);
+     marker.bindPopup("<b>Your are currently here</b>.").openPopup();
+
+    document.getElementById("latitude").value = position.coords.latitude;
+    document.getElementById("longitude").value = position.coords.longitude;
+}
+</script>
+
+
+
+<script>
+  //Set view as Melbourne as that is where the business is based
+    var mymap = L.map('mapid').setView([-37.81394,144.96342], 14);
+    L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+    accessToken: 'pk.eyJ1IjoiaXJlbGFuZG4iLCJhIjoiY2twMmYxMmZsMDFudDJvczRpZWk1cnh6dCJ9.Sxv1SSVKg88CjgXVRbvIsg'
+}).addTo(mymap);
+</script>

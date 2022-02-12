@@ -1,0 +1,169 @@
+       
+<tr id="{{this._id}}order-row">
+    {{!-- Determines button states on document load --}}
+    <script>
+        $(document).ready(function(){
+            //Hide item list menu
+            $("#{{this._id}}more-details").hide()
+            //Check button to see if loaded
+            if ({{this.orderReady}}) {
+                $("#{{this._id}}order-ready").prop('disabled', true)
+            }
+            else {
+                $("#{{this._id}}order-picked-up").prop('disabled', true)
+            }
+            
+
+        })
+    </script>
+    {{!-- Reveal more details when button clicked--}}
+    <script>
+        $(function () {
+            $("#"+"{{this._id}}"+"more-details-button").click(function(event){
+                $("#{{this._id}}more-details").slideToggle()
+            });
+            // end  
+        });
+    </script>
+
+    {{!-- Remove Order once picked up JQUERY AJAX Function--}}
+    <script>
+        $(function () {
+            // don't cache ajax or content won't be fresh
+            $.ajaxSetup({
+                cache: false
+            });
+            $("#"+"{{this._id}}"+"order-picked-up").click(function(event){
+                $.ajax({
+                    url : "/vendor/order/pickedUp/" + "{{this._id}}",
+                    type :'POST',
+                    data : {},
+                    //contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success : function(response){
+                        $("#{{this._id}}order-row")
+                        .children('td, th')
+                        .animate({ padding: 0 })
+                        .wrapInner('<div />')
+                        .children()
+                        .slideUp(function() {$("#{{this._id}}order-row").remove()});
+                    }
+                })
+            });
+            // end  
+        });
+    </script>
+
+    {{!-- Update Order to ready JQUERY AJAX Function--}}
+    <script>
+        $(function () {
+            // don't cache ajax or content won't be fresh
+            $.ajaxSetup({
+                cache: false
+            });
+            $("#"+"{{this._id}}"+"order-ready").click(function(event){
+                $.ajax({
+                    url : "/vendor/order/ready/" + "{{this._id}}",
+                    type :'POST',
+                    data : {},
+                    //contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    async: true,
+                    success : function(response){
+                        // $("#total-cost").text((Number(document.getElementById("total-cost").textContent) + (Number("{{this.menuItemId.itemPrice}}") * -document.getElementById("{{@index}}item-qty").textContent)).toFixed(2))
+                        $("#{{this._id}}order-status").text("Ready")
+                        $("#{{this._id}}order-ready").prop('disabled', true)
+                        $("#{{this._id}}order-picked-up").prop('disabled', false)
+                    }  
+                })
+            });
+            // end  
+        });
+    </script>
+    {{!-- Countdown time till late --}}
+    {{#if this.cutoff}}
+    {{!-- Adapted from https://www.w3schools.com/howto/howto_js_countdown.asp --}}
+        <script id="{{this._id}}countdown-clock-script">
+
+            // Update the count down every 1 second
+            var x{{this._id}} = setInterval(function() {
+                //Check if element still exists
+                if((document.getElementById("{{this._id}}countdownClock") == null)){
+                    console.log("Cancelled")
+                    clearInterval(x{{this._id}})
+                    return;
+                }
+                // Get today's date and time
+                var now = new Date().getTime();
+
+                // Find the distance between now and the count down date
+                var distance{{this._id}} = new Date("{{this.cutoffTime}}").getTime() - now;
+
+                // Time calculations for days, hours, minutes and seconds
+                var minutes{{this._id}} = Math.floor((distance{{this._id}} % (1000 * 60 * 60)) / (1000 * 60));
+                var seconds{{this._id}} = Math.floor((distance{{this._id}} % (1000 * 60)) / 1000);
+
+                // Display the result in the element with id="demo"
+                document.getElementById("{{this._id}}countdownClock").innerHTML = minutes{{this._id}} + "m " + seconds{{this._id}} + "s ";
+
+                // If the count down is finished, write some text
+                if (distance{{this._id}} < 0) {
+                    clearInterval(x{{this._id}});
+                    document.getElementById("{{this._id}}countdownClock").innerHTML = "Late";
+                }
+            }, 1000);
+        </script>
+    {{/if}}
+
+    <td>   
+        <Strong>{{this.customerId.firstName}}</Strong>
+    </td>
+    <td>
+        {{this.orderNumber}}
+    </td>
+    <td>
+        {{#formatDateAndTime this.orderPlacedTime}}{{/formatDateAndTime}}
+    </td>
+ 
+    <td>
+        <div id="{{this._id}}countdownClock">Late</div>
+    </td>
+    <td>
+    <button class="button5" id={{this._id}}order-ready>
+        Ready
+    </button>
+    </td>
+    <td>
+    <button class="button5" id={{this._id}}order-picked-up>
+        Picked Up
+    </button>
+    </td>
+
+    <td>
+        <button class="remove-item-button" id={{this._id}}more-details-button>
+            ...
+        </button>
+    </td>
+</tr>
+<tr>
+    <td colspan="6">
+        <table id="{{this._id}}more-details">
+            
+            <tr id="orderListHeader">
+                <td>Item</td>
+                <td>Price</td>
+                <td>Subtotal</td>
+            </tr>
+
+            {{#each this.itemList}}
+            <tr>
+                <td>{{this.qty}} x {{this.menuItemId.itemName}}</td>
+                <td> ${{this.menuItemId.itemPrice}}</td>
+                <td> ${{this.subtotal}}</td>
+            </tr>
+            {{/each}}
+            <td>Total = $ {{this.total}}</td>
+        </table>
+    </td>
+</tr>
